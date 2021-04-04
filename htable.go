@@ -76,7 +76,7 @@ func (ht *Table) expandTable() error {
 	newTable := make([][]entry, len(ht.buckets)*2)
 	for _, bucket := range ht.buckets {
 		for _, e := range bucket {
-			newHash := hashValue(e.key, len(ht.buckets))
+			newHash := hashValue(e.key, len(newTable))
 			newTable[newHash] = append(newTable[newHash], entry{e.key, e.value})
 		}
 	}

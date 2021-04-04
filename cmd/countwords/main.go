@@ -1,8 +1,4 @@
-// Simple hash table example program (print frequencies of unique words)
-//
-// To run, execute this command:
-// $ go run ./cmd/countwords/main.go <cmd/countwords/test.txt
-
+// Courtesy of Ben Hoyt (https://github.com/benhoyt)
 package main
 
 import (

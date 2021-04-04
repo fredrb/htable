@@ -1,2 +1,5 @@
-foo bar the
-The the bar the
+the and the one two three
+the one and the two
+some words to test
+three four five
+another sentence

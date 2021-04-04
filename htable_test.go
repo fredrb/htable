@@ -24,7 +24,7 @@ func assertTableWithKey(t *testing.T, key PreHashable) interface{} {
 func assertTableWithKeyAndStringValue(t *testing.T, key PreHashable, expected string) {
 	v, ok := assertTableWithKey(t, key).(string)
 	if !ok {
-		t.Errorf("Failed to convert key to string")
+		t.Errorf("Failed to convert value to string")
 	}
 	if v != expected {
 		t.Errorf("Expected value to be %s but instead found %s", expected, v)
@@ -33,7 +33,7 @@ func assertTableWithKeyAndStringValue(t *testing.T, key PreHashable, expected st
 
 func assertLength(t *testing.T, expected int) {
 	if length := ht.Len(); length != expected {
-		t.Errorf("Size not %d", expected)
+		t.Errorf("Expected size to be %d but instead found %d", expected, ht.Len())
 	}
 }
 
@@ -79,6 +79,14 @@ func TestDeleteValueFromHash(t *testing.T) {
 	}
 }
 
+func TestDeleteErrorIfKeyIsMissing(t *testing.T) {
+	ht = New()
+	err := ht.Delete(MissingKey)
+	if err == nil {
+		t.Errorf("Should have returned error")
+	}
+}
+
 func TestTableSize(t *testing.T) {
 	ht = New()
 	ht.Set(Key1, "v1")
@@ -90,12 +98,12 @@ func TestTableSize(t *testing.T) {
 }
 
 func TestReadAnyValueFromInterface(t *testing.T) {
+	ht = New()
 	type point struct {
 		x int
 		y int
 	}
 
-	ht = New()
 	ht.Set(Key1, point{1, 2})
 	ht.Set(Key2, point{3, 4})
 
